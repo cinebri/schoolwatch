@@ -17,6 +17,7 @@
     "pcm-player": "^0.0.11",
     "ts-proto": "^1.101.0",
     "wasm-feature-detect": "^1.2.11",
+    "web_hbb": "file:",
     "zstddec": "^0.0.2"
   }
 }
