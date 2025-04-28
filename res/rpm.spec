@@ -1,10 +1,10 @@
-Name:       rustdesk
+Name:       schoolwatch
 Version:    1.3.9
 Release:    0
 Summary:    RPM package
 License:    GPL-3.0
-URL:        https://rustdesk.com
-Vendor:     rustdesk <info@rustdesk.com>
+URL:        https://schoolwatch.com
+Vendor:     schoolwatch <info@schoolwatch.com>
 Requires:   gtk3 libxcb libxdo libXfixes alsa-lib libva2 pam gstreamer1-plugins-base
 Recommends: libayatana-appindicator-gtk3
 
@@ -23,27 +23,27 @@ The best open-source remote desktop client software, written in Rust.
 
 %install
 mkdir -p %{buildroot}/usr/bin/
-mkdir -p %{buildroot}/usr/share/rustdesk/
-mkdir -p %{buildroot}/usr/share/rustdesk/files/
+mkdir -p %{buildroot}/usr/share/schoolwatch/
+mkdir -p %{buildroot}/usr/share/schoolwatch/files/
 mkdir -p %{buildroot}/usr/share/icons/hicolor/256x256/apps/
 mkdir -p %{buildroot}/usr/share/icons/hicolor/scalable/apps/
-install -m 755 $HBB/target/release/rustdesk %{buildroot}/usr/bin/rustdesk
-install $HBB/libsciter-gtk.so %{buildroot}/usr/share/rustdesk/libsciter-gtk.so
-install $HBB/res/rustdesk.service %{buildroot}/usr/share/rustdesk/files/
-install $HBB/res/128x128@2x.png %{buildroot}/usr/share/icons/hicolor/256x256/apps/rustdesk.png
-install $HBB/res/scalable.svg %{buildroot}/usr/share/icons/hicolor/scalable/apps/rustdesk.svg
-install $HBB/res/rustdesk.desktop %{buildroot}/usr/share/rustdesk/files/
-install $HBB/res/rustdesk-link.desktop %{buildroot}/usr/share/rustdesk/files/
+install -m 755 $HBB/target/release/schoolwatch %{buildroot}/usr/bin/schoolwatch
+install $HBB/libsciter-gtk.so %{buildroot}/usr/share/schoolwatch/libsciter-gtk.so
+install $HBB/res/schoolwatch.service %{buildroot}/usr/share/schoolwatch/files/
+install $HBB/res/128x128@2x.png %{buildroot}/usr/share/icons/hicolor/256x256/apps/schoolwatch.png
+install $HBB/res/scalable.svg %{buildroot}/usr/share/icons/hicolor/scalable/apps/schoolwatch.svg
+install $HBB/res/schoolwatch.desktop %{buildroot}/usr/share/schoolwatch/files/
+install $HBB/res/schoolwatch-link.desktop %{buildroot}/usr/share/schoolwatch/files/
 
 %files
-/usr/bin/rustdesk
-/usr/share/rustdesk/libsciter-gtk.so
-/usr/share/rustdesk/files/rustdesk.service
-/usr/share/icons/hicolor/256x256/apps/rustdesk.png
-/usr/share/icons/hicolor/scalable/apps/rustdesk.svg
-/usr/share/rustdesk/files/rustdesk.desktop
-/usr/share/rustdesk/files/rustdesk-link.desktop
-/usr/share/rustdesk/files/__pycache__/*
+/usr/bin/schoolwatch
+/usr/share/schoolwatch/libsciter-gtk.so
+/usr/share/schoolwatch/files/schoolwatch.service
+/usr/share/icons/hicolor/256x256/apps/schoolwatch.png
+/usr/share/icons/hicolor/scalable/apps/schoolwatch.svg
+/usr/share/schoolwatch/files/schoolwatch.desktop
+/usr/share/schoolwatch/files/schoolwatch-link.desktop
+/usr/share/schoolwatch/files/__pycache__/*
 
 %changelog
 # let's skip this for now
@@ -56,26 +56,26 @@ case "$1" in
   ;;
   2)
     # for upgrade
-    systemctl stop rustdesk || true
+    systemctl stop schoolwatch || true
   ;;
 esac
 
 %post
-cp /usr/share/rustdesk/files/rustdesk.service /etc/systemd/system/rustdesk.service
-cp /usr/share/rustdesk/files/rustdesk.desktop /usr/share/applications/
-cp /usr/share/rustdesk/files/rustdesk-link.desktop /usr/share/applications/
+cp /usr/share/schoolwatch/files/schoolwatch.service /etc/systemd/system/schoolwatch.service
+cp /usr/share/schoolwatch/files/schoolwatch.desktop /usr/share/applications/
+cp /usr/share/schoolwatch/files/schoolwatch-link.desktop /usr/share/applications/
 systemctl daemon-reload
-systemctl enable rustdesk
-systemctl start rustdesk
+systemctl enable schoolwatch
+systemctl start schoolwatch
 update-desktop-database
 
 %preun
 case "$1" in
   0)
     # for uninstall
-    systemctl stop rustdesk || true
-    systemctl disable rustdesk || true
-    rm /etc/systemd/system/rustdesk.service || true
+    systemctl stop schoolwatch || true
+    systemctl disable schoolwatch || true
+    rm /etc/systemd/system/schoolwatch.service || true
   ;;
   1)
     # for upgrade
@@ -86,8 +86,8 @@ esac
 case "$1" in
   0)
     # for uninstall
-    rm /usr/share/applications/rustdesk.desktop || true
-    rm /usr/share/applications/rustdesk-link.desktop || true
+    rm /usr/share/applications/schoolwatch.desktop || true
+    rm /usr/share/applications/schoolwatch-link.desktop || true
     update-desktop-database
   ;;
   1)

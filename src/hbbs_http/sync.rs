@@ -52,7 +52,7 @@ pub struct StrategyOptions {
 #[cfg(not(any(target_os = "ios")))]
 #[tokio::main(flavor = "current_thread")]
 async fn start_hbbs_sync_async() {
-    let mut interval = crate::rustdesk_interval(tokio::time::interval_at(
+    let mut interval = crate::schoolwatch_interval(tokio::time::interval_at(
         Instant::now() + TIME_CONN,
         TIME_CONN,
     ));
@@ -80,7 +80,7 @@ async fn start_hbbs_sync_async() {
                 if !info_uploaded.0 && info_uploaded.2.map(|x| x.elapsed() >= UPLOAD_SYSINFO_TIMEOUT).unwrap_or(true) {
                     let mut v = crate::get_sysinfo();
                     // username is empty in login screen of windows, but here we only upload sysinfo once, causing
-                    // real user name not uploaded after login screen. https://github.com/rustdesk/rustdesk/discussions/8031
+                    // real user name not uploaded after login screen. https://github.com/schoolwatch/schoolwatch/discussions/8031
                     if !cfg!(windows) || !v["username"].as_str().unwrap_or_default().is_empty() {
                         v["version"] = json!(crate::VERSION);
                         v["id"] = json!(id);
@@ -200,7 +200,7 @@ fn heartbeat_url() -> String {
         Config::get_option("api-server"),
         Config::get_option("custom-rendezvous-server"),
     );
-    if url.is_empty() || url.contains("rustdesk.com") {
+    if url.is_empty() || url.contains("schoolwatch.com") {
         return "".to_owned();
     }
     format!("{}/api/heartbeat", url)

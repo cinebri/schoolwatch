@@ -1,15 +1,15 @@
 [package]
-name = "rustdesk"
+name = "schoolwatch"
 version = "1.3.9"
-authors = ["rustdesk <info@rustdesk.com>"]
+authors = ["schoolwatch <info@schoolwatch.com>"]
 edition = "2021"
 build= "build.rs"
-description = "RustDesk Remote Desktop"
-default-run = "rustdesk"
+description = "SchoolWatch Remote Desktop"
+default-run = "schoolwatch"
 rust-version = "1.75"
 
 [lib]
-name = "librustdesk"
+name = "libschoolwatch"
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [[bin]]
@@ -84,7 +84,7 @@ shutdown_hooks = "0.1"
 totp-rs = { version = "5.4", default-features = false, features = ["gen_secret", "otpauth"] }
 
 [target.'cfg(not(target_os = "linux"))'.dependencies]
-# https://github.com/rustdesk/rustdesk/discussions/10197, not use cpal on linux
+# https://github.com/schoolwatch/schoolwatch/discussions/10197, not use cpal on linux
 cpal = { git = "https://github.com/rustdesk-org/cpal", branch = "osx-screencapturekit" }
 ringbuf = "0.3"
 
@@ -149,7 +149,7 @@ keepawake = { git = "https://github.com/rustdesk-org/keepawake-rs" }
 wallpaper = { git = "https://github.com/rustdesk-org/wallpaper.rs" }
 
 [target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
-# https://github.com/rustdesk/rustdesk-server-pro/issues/189, using native-tls for better tls support
+# https://github.com/schoolwatch/schoolwatch-server-pro/issues/189, using native-tls for better tls support
 reqwest = { git = "https://github.com/rustdesk-org/reqwest", features = ["blocking", "socks", "json", "native-tls", "gzip"], default-features=false }
 
 [target.'cfg(not(any(target_os = "macos", target_os = "windows")))'.dependencies]
@@ -184,9 +184,9 @@ exclude = ["vdi/host", "examples/custom_plugin"]
 
 [package.metadata.winres]
 LegalCopyright = "Copyright © 2025 Purslane Ltd. All rights reserved."
-ProductName = "RustDesk"
-FileDescription = "RustDesk Remote Desktop"
-OriginalFilename = "rustdesk.exe"
+ProductName = "SchoolWatch"
+FileDescription = "SchoolWatch Remote Desktop"
+OriginalFilename = "schoolwatch.exe"
 
 [target.'cfg(target_os="windows")'.build-dependencies]
 winres = "0.1"
@@ -202,8 +202,8 @@ hound = "3.5"
 docopt = "1.1"
 
 [package.metadata.bundle]
-name = "RustDesk"
-identifier = "com.carriez.rustdesk"
+name = "SchoolWatch"
+identifier = "com.carriez.schoolwatch"
 icon = ["res/32x32.png", "res/128x128.png", "res/128x128@2x.png"]
 osx_minimum_system_version = "10.14"
 

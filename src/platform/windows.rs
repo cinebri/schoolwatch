@@ -1150,7 +1150,7 @@ fn get_after_install(
     let ext = app_name.to_lowercase();
 
     // reg delete HKEY_CURRENT_USER\Software\Classes for
-    // https://github.com/rustdesk/rustdesk/commit/f4bdfb6936ae4804fc8ab1cf560db192622ad01a
+    // https://github.com/schoolwatch/schoolwatch/commit/f4bdfb6936ae4804fc8ab1cf560db192622ad01a
     // and https://github.com/leanflutter/uni_links_desktop/blob/1b72b0226cec9943ca8a84e244c149773f384e46/lib/src/protocol_registrar_impl_windows.dart#L30
     let hcu = winreg::RegKey::predef(HKEY_CURRENT_USER);
     hcu.delete_subkey_all(format!("Software\\Classes\\{}", exe))
@@ -1296,7 +1296,7 @@ copy /Y \"{tmp_path}\\Uninstall {app_name}.lnk\" \"{start_menu}\\\"
     // https://docs.microsoft.com/zh-cn/windows/win32/msi/uninstall-registry-key?redirectedfrom=MSDNa
     // https://www.windowscentral.com/how-edit-registry-using-command-prompt-windows-10
     // https://www.tenforums.com/tutorials/70903-add-remove-allowed-apps-through-windows-firewall-windows-10-a.html
-    // Note: without if exist, the bat may exit in advance on some Windows7 https://github.com/rustdesk/rustdesk/issues/895
+    // Note: without if exist, the bat may exit in advance on some Windows7 https://github.com/schoolwatch/schoolwatch/issues/895
     let dels = format!(
         "
 if exist \"{mk_shortcut}\" del /f /q \"{mk_shortcut}\"
@@ -1510,7 +1510,7 @@ fn run_cmds(cmds: String, show: bool, tip: &str) -> ResultType<()> {
     let tmp = write_cmds(cmds, "bat", tip)?;
     let tmp2 = get_undone_file(&tmp)?;
     let tmp_fn = tmp.to_str().unwrap_or("");
-    // https://github.com/rustdesk/rustdesk/issues/6786#issuecomment-1879655410
+    // https://github.com/schoolwatch/schoolwatch/issues/6786#issuecomment-1879655410
     // Specify cmd.exe explicitly to avoid the replacement of cmd commands.
     let res = runas::Command::new("cmd.exe")
         .args(&["/C", &tmp_fn])
@@ -1611,7 +1611,7 @@ pub fn bootstrap() -> bool {
     }
     #[cfg(not(debug_assertions))]
     {
-        // This function will cause `'sciter.dll' was not found neither in PATH nor near the current executable.` when debugging RustDesk.
+        // This function will cause `'sciter.dll' was not found neither in PATH nor near the current executable.` when debugging SchoolWatch.
         set_safe_load_dll()
     }
 }
@@ -2151,11 +2151,11 @@ mod cert {
     use hbb_common::ResultType;
 
     extern "C" {
-        fn DeleteRustDeskTestCertsW();
+        fn DeleteSchoolWatchTestCertsW();
     }
     pub fn uninstall_cert() -> ResultType<()> {
         unsafe {
-            DeleteRustDeskTestCertsW();
+            DeleteSchoolWatchTestCertsW();
         }
         Ok(())
     }
@@ -2445,7 +2445,7 @@ pub fn message_box(text: &str) {
         .encode_utf16()
         .chain(std::iter::once(0))
         .collect::<Vec<u16>>();
-    let caption = "RustDesk Output"
+    let caption = "SchoolWatch Output"
         .encode_utf16()
         .chain(std::iter::once(0))
         .collect::<Vec<u16>>();
@@ -2575,10 +2575,10 @@ pub fn is_x64() -> bool {
     unsafe { sys_info.u.s().wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 }
 }
 
-pub fn try_kill_rustdesk_main_window_process() -> ResultType<()> {
-    // Kill rustdesk.exe without extra arg, should only be called by --server
+pub fn try_kill_schoolwatch_main_window_process() -> ResultType<()> {
+    // Kill schoolwatch.exe without extra arg, should only be called by --server
     // We can find the exact process which occupies the ipc, see more from https://github.com/winsiderss/systeminformer
-    log::info!("try kill rustdesk main window process");
+    log::info!("try kill schoolwatch main window process");
     use hbb_common::sysinfo::System;
     let mut sys = System::new();
     sys.refresh_processes();
@@ -2624,7 +2624,7 @@ pub fn try_kill_rustdesk_main_window_process() -> ResultType<()> {
         log::info!("kill process success: {:?}, pid = {:?}", p.cmd(), p.pid());
         return Ok(());
     }
-    bail!("failed to find rustdesk main window process");
+    bail!("failed to find schoolwatch main window process");
 }
 
 fn nt_terminate_process(process_id: DWORD) -> ResultType<()> {
@@ -2879,7 +2879,7 @@ pub fn send_raw_data_to_printer(printer_name: Option<String>, data: Vec<u8>) -> 
             data.len() as c_ulong,
         );
         if res != 0 {
-            bail!("Failed to send data to the printer, see logs in C:\\Windows\\temp\\test_rustdesk.log for more details.");
+            bail!("Failed to send data to the printer, see logs in C:\\Windows\\temp\\test_schoolwatch.log for more details.");
         } else {
             log::info!("Successfully sent data to the printer");
         }

@@ -5,43 +5,43 @@
 # arg 1:  the new package version
 post_install() {
 	# do something here
-	cp /usr/share/rustdesk/files/rustdesk.service /etc/systemd/system/rustdesk.service
-	cp /usr/share/rustdesk/files/rustdesk.desktop /usr/share/applications/
-	cp /usr/share/rustdesk/files/rustdesk-link.desktop /usr/share/applications/
+	cp /usr/share/schoolwatch/files/schoolwatch.service /etc/systemd/system/schoolwatch.service
+	cp /usr/share/schoolwatch/files/schoolwatch.desktop /usr/share/applications/
+	cp /usr/share/schoolwatch/files/schoolwatch-link.desktop /usr/share/applications/
 	systemctl daemon-reload
-	systemctl enable rustdesk
-	systemctl start rustdesk
+	systemctl enable schoolwatch
+	systemctl start schoolwatch
 	update-desktop-database
 }
 
 # arg 1:  the new package version
 # arg 2:  the old package version
 pre_upgrade() {
-    systemctl stop rustdesk || true
+    systemctl stop schoolwatch || true
 }
 
 # arg 1:  the new package version
 # arg 2:  the old package version
 post_upgrade() {
-	cp /usr/share/rustdesk/files/rustdesk.service /etc/systemd/system/rustdesk.service
-	cp /usr/share/rustdesk/files/rustdesk.desktop /usr/share/applications/
-	cp /usr/share/rustdesk/files/rustdesk-link.desktop /usr/share/applications/
+	cp /usr/share/schoolwatch/files/schoolwatch.service /etc/systemd/system/schoolwatch.service
+	cp /usr/share/schoolwatch/files/schoolwatch.desktop /usr/share/applications/
+	cp /usr/share/schoolwatch/files/schoolwatch-link.desktop /usr/share/applications/
 	systemctl daemon-reload
-	systemctl enable rustdesk
-	systemctl start rustdesk
+	systemctl enable schoolwatch
+	systemctl start schoolwatch
 	update-desktop-database
 }
 
 # arg 1:  the old package version
 pre_remove() {
-	systemctl stop rustdesk || true
-	systemctl disable rustdesk || true
-	rm /etc/systemd/system/rustdesk.service || true
+	systemctl stop schoolwatch || true
+	systemctl disable schoolwatch || true
+	rm /etc/systemd/system/schoolwatch.service || true
 }
 
 # arg 1:  the old package version
 post_remove() {
-	rm /usr/share/applications/rustdesk.desktop || true
-	rm /usr/share/applications/rustdesk-link.desktop || true
+	rm /usr/share/applications/schoolwatch.desktop || true
+	rm /usr/share/applications/schoolwatch-link.desktop || true
 	update-desktop-database
 }
